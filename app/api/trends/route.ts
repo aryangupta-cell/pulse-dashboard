@@ -6,7 +6,6 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const granularity = searchParams.get('granularity') || 'daily'; // daily, weekly, monthly
     const month = searchParams.get('month');
-    const department = searchParams.get('department');
     const subDept = searchParams.get('subDept');
     const employee = searchParams.get('employee');
 
@@ -16,10 +15,6 @@ export async function GET(request: NextRequest) {
     if (month) {
       whereClause += ' AND TO_CHAR(date, \'YYYY-MM\') = $' + (params.length + 1);
       params.push(month);
-    }
-    if (department) {
-      whereClause += ' AND department = $' + (params.length + 1);
-      params.push(department);
     }
     if (subDept) {
       whereClause += ' AND sub_dept = $' + (params.length + 1);
