@@ -26,7 +26,7 @@ interface ChartsProps {
 interface TrendData {
   date: string;
   productivity: number;
-  communication: number;
+  totalTrips: number;
 }
 
 export default function Charts({ filters }: ChartsProps) {
