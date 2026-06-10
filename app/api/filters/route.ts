@@ -21,10 +21,10 @@ export async function GET() {
     `);
 
     return NextResponse.json({
-      months: monthsResult.rows.map(r => r.month),
+      months: monthsResult.rows.map((r: any) => r.month),
       departments: [], // No department column in database
-      subDepts: subDeptsResult.rows.map(r => r.sub_dept),
-      employees: employeesResult.rows.map(r => ({
+      subDepts: subDeptsResult.rows.map((r: any) => r.sub_dept),
+      employees: employeesResult.rows.map((r: any) => ({
         code: r.emp_code,
         name: r.emp_name,
       })),

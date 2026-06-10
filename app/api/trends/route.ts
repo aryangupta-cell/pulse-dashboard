@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
 
     const result = await query(trendsQuery, params);
 
-    const trends = result.rows.map(row => ({
+    const trends = result.rows.map((row: any) => ({
       date: row.date.toISOString().split('T')[0],
       productivity: parseFloat(row.productivity) || 0,
       totalTrips: parseInt(row.total_trips) || 0,
