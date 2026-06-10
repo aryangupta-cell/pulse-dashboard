@@ -20,6 +20,8 @@ interface ChartsProps {
     department: string;
     subDept: string;
     employee: string;
+    dateFrom: string;
+    dateTo: string;
   };
 }
 
@@ -44,6 +46,8 @@ export default function Charts({ filters }: ChartsProps) {
         if (filters.department) params.append('department', filters.department);
         if (filters.subDept) params.append('subDept', filters.subDept);
         if (filters.employee) params.append('employee', filters.employee);
+        if (filters.dateFrom) params.append('dateFrom', filters.dateFrom);
+        if (filters.dateTo) params.append('dateTo', filters.dateTo);
 
         const response = await fetch(`/api/trends?${params}`);
         const result = await response.json();

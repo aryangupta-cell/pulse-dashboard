@@ -7,6 +7,8 @@ export async function GET(request: NextRequest) {
     const month = searchParams.get('month');
     const subDept = searchParams.get('subDept');
     const employee = searchParams.get('employee');
+    const dateFrom = searchParams.get('dateFrom');
+    const dateTo = searchParams.get('dateTo');
 
     let whereClause = 'WHERE 1=1';
     const params: any[] = [];
@@ -22,6 +24,14 @@ export async function GET(request: NextRequest) {
     if (employee) {
       whereClause += ' AND emp_code = $' + (params.length + 1);
       params.push(employee);
+    }
+    if (dateFrom) {
+      whereClause += ' AND date >= $' + (params.length + 1);
+      params.push(dateFrom);
+    }
+    if (dateTo) {
+      whereClause += ' AND date <= $' + (params.length + 1);
+      params.push(dateTo);
     }
 
     const employeesQuery = `

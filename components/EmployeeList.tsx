@@ -16,6 +16,8 @@ interface EmployeeListProps {
     department: string;
     subDept: string;
     employee: string;
+    dateFrom: string;
+    dateTo: string;
   };
 }
 
@@ -31,6 +33,8 @@ export default function EmployeeList({ filters }: EmployeeListProps) {
         if (filters.month) params.append('month', filters.month);
         if (filters.subDept) params.append('subDept', filters.subDept);
         if (filters.employee) params.append('employee', filters.employee);
+        if (filters.dateFrom) params.append('dateFrom', filters.dateFrom);
+        if (filters.dateTo) params.append('dateTo', filters.dateTo);
 
         const response = await fetch(`/api/employees?${params}`);
         const result = await response.json();
