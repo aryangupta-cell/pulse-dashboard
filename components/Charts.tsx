@@ -122,8 +122,8 @@ export default function Charts({ filters }: ChartsProps) {
     <div className="grid grid-cols-2 gap-6 mt-8">
       {/* D Score Chart */}
       <ChartCard title="D Score Trend" description="Performance Score over time">
-        <ResponsiveContainer width="100%" height={280}>
-          <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={data} margin={{ top: 15, right: 15, left: 0, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
             <XAxis
               dataKey="dateLabel"
@@ -150,8 +150,8 @@ export default function Charts({ filters }: ChartsProps) {
 
       {/* Productivity & Trips Merged Chart */}
       <ChartCard title="Productivity & Trips" description="Weighted Units & Total Trips">
-        <ResponsiveContainer width="100%" height={280}>
-          <ComposedChart data={data} margin={{ top: 5, right: 30, left: -20, bottom: 5 }}>
+        <ResponsiveContainer width="100%" height={400}>
+          <ComposedChart data={data} margin={{ top: 15, right: 50, left: 0, bottom: 20 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
             <XAxis
               dataKey="dateLabel"
