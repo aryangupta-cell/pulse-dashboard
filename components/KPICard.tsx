@@ -9,6 +9,7 @@ interface KPICardProps {
 }
 
 export default function KPICard({ title, value, color, icon, unit = '' }: KPICardProps) {
+  const displayValue = typeof value === 'number' ? Math.round(value) : value;
   const borderColorClasses = {
     blue: 'border-t-4 border-t-blue-500',
     teal: 'border-t-4 border-t-teal-500',
@@ -56,7 +57,7 @@ export default function KPICard({ title, value, color, icon, unit = '' }: KPICar
         <span className={`${iconColor} text-3xl`}>{icon}</span>
       </div>
       <p className={`${textColor} text-4xl font-bold tracking-tight`}>
-        {value}{unit}
+        {displayValue}{unit}
       </p>
     </div>
   );
