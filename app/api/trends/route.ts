@@ -46,7 +46,8 @@ export async function GET(request: NextRequest) {
       SELECT
         ${dateGroup} as date,
         ROUND(AVG(weighted_count::numeric), 2) as productivity,
-        SUM(tasks_count::numeric) as total_trips
+        SUM(tasks_count::numeric) as total_trips,
+        ROUND(AVG(d_score::numeric), 2) as d_score
       FROM public.eod_annotation
       ${whereClause}
       GROUP BY ${dateGroup}
@@ -59,6 +60,7 @@ export async function GET(request: NextRequest) {
       date: row.date.toISOString().split('T')[0],
       productivity: parseFloat(row.productivity) || 0,
       totalTrips: parseInt(row.total_trips) || 0,
+      dScore: parseFloat(row.d_score) || 0,
     }));
 
     return NextResponse.json({ trends });

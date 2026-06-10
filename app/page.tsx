@@ -68,16 +68,10 @@ export default function Dashboard() {
         {/* KPI Cards */}
         <div className="grid grid-cols-5 gap-4">
           <KPICard
-            title="Total Employees"
-            value={kpis.totalEmployees}
-            color="blue"
-            icon="👤"
-          />
-          <KPICard
-            title="Total Working Days"
-            value={kpis.totalWorkingDays}
-            color="teal"
-            icon="📅"
+            title="D Score"
+            value={kpis.dScore}
+            color="purple"
+            icon="⭐"
           />
           <KPICard
             title="Avg Weighted Units"
@@ -92,10 +86,16 @@ export default function Dashboard() {
             icon="🚗"
           />
           <KPICard
-            title="D Score"
-            value={kpis.dScore}
-            color="purple"
-            icon="⭐"
+            title="Total Employees"
+            value={kpis.totalEmployees}
+            color="blue"
+            icon="👤"
+          />
+          <KPICard
+            title="Total Working Days"
+            value={kpis.totalWorkingDays}
+            color="teal"
+            icon="📅"
           />
         </div>
 

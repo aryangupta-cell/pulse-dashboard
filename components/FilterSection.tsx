@@ -70,17 +70,17 @@ export default function FilterSection({ onFiltersChange }: FilterSectionProps) {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg border border-gray-200 mt-6 mb-6">
-      <h3 className="text-lg font-semibold mb-4 text-gray-700">Filters</h3>
-      <div className="grid grid-cols-5 gap-4">
+    <div className="bg-white p-8 rounded-xl border border-gray-100 mt-8 mb-8 shadow-sm hover:shadow-md transition">
+      <h3 className="text-xl font-bold mb-6 text-gray-800">Filters</h3>
+      <div className="grid grid-cols-5 gap-5">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-semibold text-gray-700 mb-2.5">
             📅 Month
           </label>
           <select
             value={filters.month}
             onChange={(e) => handleFilterChange('month', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white hover:border-gray-400 transition"
           >
             <option>All Months</option>
             {options.months.map((month) => (
@@ -98,7 +98,7 @@ export default function FilterSection({ onFiltersChange }: FilterSectionProps) {
           <select
             value={filters.subDept}
             onChange={(e) => handleFilterChange('subDept', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white hover:border-gray-400 transition"
           >
             <option>All Sub-depts</option>
             {options.subDepts.map((subDept) => (
@@ -135,7 +135,7 @@ export default function FilterSection({ onFiltersChange }: FilterSectionProps) {
             type="date"
             value={filters.dateFrom}
             onChange={(e) => handleFilterChange('dateFrom', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white hover:border-gray-400 transition"
           />
         </div>
 

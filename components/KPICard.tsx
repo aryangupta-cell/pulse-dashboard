@@ -37,13 +37,25 @@ export default function KPICard({ title, value, color, icon, unit = '' }: KPICar
   const textColor = textColorClasses[color as keyof typeof textColorClasses] || textColorClasses.blue;
   const iconColor = iconColorClasses[color as keyof typeof iconColorClasses] || iconColorClasses.blue;
 
+  const bgGradients = {
+    blue: 'from-blue-50 to-blue-100/20',
+    teal: 'from-teal-50 to-teal-100/20',
+    green: 'from-green-50 to-green-100/20',
+    orange: 'from-orange-50 to-orange-100/20',
+    purple: 'from-purple-50 to-purple-100/20',
+  };
+
+  const bgGradient = bgGradients[color as keyof typeof bgGradients] || bgGradients.blue;
+
   return (
-    <div className={`bg-white border border-gray-200 rounded-lg p-6 flex-1 ${borderColor}`}>
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-gray-500 text-sm font-medium">{title}</p>
-        <span className={`${iconColor} text-lg`}>{icon}</span>
+    <div className={`bg-gradient-to-br ${bgGradient} border border-gray-200 rounded-xl p-7 flex-1 hover:shadow-lg transition-all duration-300 ${borderColor}`}>
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <p className="text-gray-600 text-sm font-semibold tracking-wide">{title}</p>
+        </div>
+        <span className={`${iconColor} text-3xl`}>{icon}</span>
       </div>
-      <p className={`${textColor} text-3xl font-bold`}>
+      <p className={`${textColor} text-4xl font-bold tracking-tight`}>
         {value}{unit}
       </p>
     </div>
