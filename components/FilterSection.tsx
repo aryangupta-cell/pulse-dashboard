@@ -70,9 +70,9 @@ export default function FilterSection({ onFiltersChange }: FilterSectionProps) {
   };
 
   return (
-    <div className="bg-white p-8 rounded-xl border border-gray-100 mt-8 mb-8 shadow-sm hover:shadow-md transition">
+    <div className="bg-white p-8 rounded-xl border border-gray-100 mt-8 mb-8 shadow-sm">
       <h3 className="text-xl font-bold mb-6 text-gray-800">Filters</h3>
-      <div className="grid grid-cols-5 gap-5">
+      <div className="grid grid-cols-5 gap-6 items-end">
         <div>
           <label className="block text-sm font-semibold text-gray-700 mb-2.5">
             📅 Month

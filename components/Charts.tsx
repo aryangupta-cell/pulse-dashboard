@@ -31,20 +31,18 @@ interface TrendData {
   totalTrips: number;
 }
 
-const formatDateLabel = (dateStr: string, granularity: 'daily' | 'weekly' | 'monthly'): string => {
+const formatDateLabel = (dateStr: string, granularity: 'daily' | 'weekly' | 'monthly', allData?: any[]): string => {
   const date = new Date(dateStr);
   if (granularity === 'daily') {
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   } else if (granularity === 'weekly') {
-    const weekStart = new Date(date);
-    weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-    const weekEnd = new Date(weekStart);
-    weekEnd.setDate(weekEnd.getDate() + 6);
-    const start = weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    const end = weekEnd.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    return `${start} - ${end}`;
+    if (!allData) return dateStr;
+    const sortedDates = allData.map(d => new Date(d.date)).sort((a, b) => a.getTime() - b.getTime());
+    const weekIndex = sortedDates.findIndex(d => d.toDateString() === date.toDateString());
+    const weekNum = Math.floor(weekIndex / 7) + 1;
+    return `Week ${weekNum}`;
   } else {
-    return date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+    return date.toLocaleDateString('en-US', { month: 'short' });
   }
 };
 
@@ -68,9 +66,10 @@ export default function Charts({ filters }: ChartsProps) {
 
         const response = await fetch(`/api/trends?${params}`);
         const result = await response.json();
-        const formattedData = (result.trends || []).map((row: TrendData) => ({
+        const rawData = result.trends || [];
+        const formattedData = rawData.map((row: TrendData) => ({
           ...row,
-          dateLabel: formatDateLabel(row.date, granularity),
+          dateLabel: formatDateLabel(row.date, granularity, rawData),
         }));
         setData(formattedData);
       } catch (error) {
@@ -120,7 +119,7 @@ export default function Charts({ filters }: ChartsProps) {
   );
 
   return (
-    <div className="grid grid-cols-3 gap-6 mt-8">
+    <div className="grid grid-cols-2 gap-6 mt-8">
       {/* D Score Chart */}
       <ChartCard title="D Score Trend" description="Performance Score over time">
         <ResponsiveContainer width="100%" height={280}>
@@ -159,8 +158,8 @@ export default function Charts({ filters }: ChartsProps) {
               tick={{ fontSize: 11 }}
               stroke="#999"
             />
-            <YAxis stroke="#999" label={{ value: 'Weighted Units', angle: -90, position: 'insideLeft' }} />
-            <YAxis yAxisId="right" orientation="right" stroke="#999" label={{ value: 'Total Trips', angle: 90, position: 'insideRight' }} />
+            <YAxis stroke="#10b981" label={{ value: 'Weighted Units', angle: -90, position: 'insideLeft', fill: '#10b981' }} />
+            <YAxis yAxisId="right" orientation="right" stroke="#f97316" label={{ value: 'Total Trips', angle: 90, position: 'insideRight', fill: '#f97316' }} />
             <Tooltip
               contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
               formatter={(value: any) => (value || 0).toFixed(2)}
@@ -189,33 +188,6 @@ export default function Charts({ filters }: ChartsProps) {
         </ResponsiveContainer>
       </ChartCard>
 
-      {/* Productivity Trend Chart */}
-      <ChartCard title="Weighted Units" description="Productivity trend over time">
-        <ResponsiveContainer width="100%" height={280}>
-          <LineChart data={data} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-            <XAxis
-              dataKey="dateLabel"
-              tick={{ fontSize: 11 }}
-              stroke="#999"
-            />
-            <YAxis stroke="#999" />
-            <Tooltip
-              contentStyle={{ backgroundColor: '#fff', border: '1px solid #e5e7eb', borderRadius: '8px' }}
-              formatter={(value: any) => (value || 0).toFixed(2)}
-            />
-            <Line
-              type="monotone"
-              dataKey="productivity"
-              stroke="#10b981"
-              strokeWidth={2.5}
-              dot={{ fill: '#10b981', r: 3 }}
-              activeDot={{ r: 5 }}
-              isAnimationActive={true}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </ChartCard>
     </div>
   );
 }
