@@ -5,6 +5,7 @@ import Header from '@/components/Header';
 import KPICard from '@/components/KPICard';
 import FilterSection from '@/components/FilterSection';
 import Charts from '@/components/Charts';
+import EmployeeList from '@/components/EmployeeList';
 
 interface KPIs {
   totalEmployees: number;
@@ -99,6 +100,9 @@ export default function Dashboard() {
 
         {/* Charts */}
         <Charts filters={filters} />
+
+        {/* Employee List */}
+        <EmployeeList filters={filters} />
       </div>
     </div>
   );
